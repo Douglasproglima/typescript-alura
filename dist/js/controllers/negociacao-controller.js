@@ -1,21 +1,23 @@
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 export class NegociacaoController {
     constructor() {
         this._negociacoes = new Negociacoes();
         this._negociacoesView = new NegociacoesView('#negociacoesView');
+        this._mensagemView = new MensagemView('#mensagemView');
         this._inputData = document.querySelector("#data");
         this._inputQtde = document.querySelector("#quantidade");
         this._inputValor = document.querySelector("#valor");
-        this._negociacoesView.update();
+        this._negociacoesView.atualizar(this._negociacoes);
     }
     adicionar() {
         const negociacao = this.criarNegociacao();
         this._negociacoes.adicionar(negociacao);
         this._negociacoes.listar();
-        console.log(this._negociacoes.listar());
         this.limparFormulario();
+        this.atualizarView();
     }
     criarNegociacao() {
         const valueDateHtml = /-/g;
@@ -29,5 +31,9 @@ export class NegociacaoController {
         this._inputQtde.value = '';
         this._inputValor.value = '';
         this._inputData.focus();
+    }
+    atualizarView() {
+        this._negociacoesView.atualizar(this._negociacoes);
+        this._mensagemView.atualizar('Negociação adicionada com sucesso!');
     }
 }

@@ -1,12 +1,9 @@
-export class NegociacoesView {
+import { Negociacoes } from "../models/negociacoes.js";
+import { View } from "./view.js";
 
-    private _elemento: HTMLElement;
+export class NegociacoesView extends View<Negociacoes> {
 
-    constructor(selectorCss: string) {
-        this._elemento = document.querySelector(selectorCss);
-    }
-
-    template(): string {
+    protected template(model: Negociacoes): string {
         return `
             <table class="table table-houver table-borderred">
                 <thead>
@@ -16,11 +13,28 @@ export class NegociacoesView {
                         <th>Valor</th>
                     </tr>
                 </thead>
+                <tbody>
+                        ${model.listar().map(
+                            negociacao => {
+                                return `
+                                    <tr>
+                                        <td>${this.formatarData(negociacao.data)}</td>
+                                        <td>${negociacao.qtde}</td>
+                                        <td>${this.formatarMoeda(negociacao.valor)}</td>
+                                    </tr>
+                                `;    
+                            }
+                        ).join('')}
+                </tbody>
             </table>
         `;
     }
 
-    update() :void {
-        this._elemento.innerHTML = this.template();
+    private formatarData(data: Date): string {
+        return new Intl.DateTimeFormat().format(data);
+    }
+
+    private formatarMoeda(valor: Number): string {
+        return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
     }
 }
