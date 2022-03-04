@@ -4,6 +4,12 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 
 export class NegociacaoController {
+
+    //#region Constantes
+    private readonly SABADO = 6;
+    private readonly DOMINGO = 0;
+    //#endregion
+
     private _inputData: HTMLInputElement;
     private _inputQtde: HTMLInputElement;
     private _inputValor: HTMLInputElement;
@@ -20,6 +26,13 @@ export class NegociacaoController {
 
     public adicionar(): void {
         const negociacao =  this.criarNegociacao();
+
+        if(this.isFinalSemana(negociacao.data))
+        {
+            this._mensagemView.atualizar('Apenas negociações em dias úteis são aceitas.');
+            return;   
+        }
+        
         this._negociacoes.adicionar(negociacao);
         this._negociacoes.listar();
         this.limparFormulario();
@@ -45,5 +58,10 @@ export class NegociacaoController {
     private atualizarView(): void {
         this._negociacoesView.atualizar(this._negociacoes);
         this._mensagemView.atualizar('Negociação adicionada com sucesso!');
+    }
+
+    private isFinalSemana(data:Date):Boolean {
+        const dia = data.getDay();
+        return dia === this.DOMINGO || dia === this.SABADO;
     }
 }

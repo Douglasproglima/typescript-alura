@@ -4,6 +4,9 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 export class NegociacaoController {
     constructor() {
+        //#region Constantes
+        this.SABADO = 6;
+        this.DOMINGO = 0;
         this._negociacoes = new Negociacoes();
         this._negociacoesView = new NegociacoesView('#negociacoesView');
         this._mensagemView = new MensagemView('#mensagemView');
@@ -14,6 +17,10 @@ export class NegociacaoController {
     }
     adicionar() {
         const negociacao = this.criarNegociacao();
+        if (this.isFinalSemana(negociacao.data)) {
+            this._mensagemView.atualizar('Apenas negociações em dias úteis são aceitas.');
+            return;
+        }
         this._negociacoes.adicionar(negociacao);
         this._negociacoes.listar();
         this.limparFormulario();
@@ -35,5 +42,9 @@ export class NegociacaoController {
     atualizarView() {
         this._negociacoesView.atualizar(this._negociacoes);
         this._mensagemView.atualizar('Negociação adicionada com sucesso!');
+    }
+    isFinalSemana(data) {
+        const dia = data.getDay();
+        return dia === this.DOMINGO || dia === this.SABADO;
     }
 }
