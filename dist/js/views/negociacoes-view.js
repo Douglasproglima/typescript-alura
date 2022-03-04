@@ -1,12 +1,8 @@
 export class NegociacoesView {
-
-    private _elemento: HTMLElement;
-
-    constructor(selectorCss: string) {
+    constructor(selectorCss) {
         this._elemento = document.querySelector(selectorCss);
     }
-
-    template(): string {
+    template() {
         return `
             <table class="table table-houver table-borderred">
                 <thead>
@@ -19,8 +15,7 @@ export class NegociacoesView {
             </table>
         `;
     }
-
-    update() :void {
+    update() {
         this._elemento.innerHTML = this.template();
     }
 }
