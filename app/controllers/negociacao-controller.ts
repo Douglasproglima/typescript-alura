@@ -2,13 +2,9 @@ import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
+import { DiaSemana } from "../enums/dia-semana.js";
 
 export class NegociacaoController {
-
-    //#region Constantes
-    private readonly SABADO = 6;
-    private readonly DOMINGO = 0;
-    //#endregion
 
     private _inputData: HTMLInputElement;
     private _inputQtde: HTMLInputElement;
@@ -16,6 +12,7 @@ export class NegociacaoController {
     private _negociacoes: Negociacoes =  new Negociacoes();
     private _negociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView = new MensagemView('#mensagemView');
+    private _diasSemana = DiaSemana;
 
     constructor() {
         this._inputData = document.querySelector("#data");
@@ -26,7 +23,7 @@ export class NegociacaoController {
 
     public adicionar(): void {
         const negociacao =  this.criarNegociacao();
-
+        
         if(this.isFinalSemana(negociacao.data))
         {
             this._mensagemView.atualizar('Apenas negociações em dias úteis são aceitas.');
@@ -47,7 +44,7 @@ export class NegociacaoController {
 
         return new Negociacao(date, qtde, valor);
     }
-
+    
     private limparFormulario(): void {
         this._inputData.value = '';
         this._inputQtde.value = '';
@@ -62,6 +59,6 @@ export class NegociacaoController {
 
     private isFinalSemana(data:Date):Boolean {
         const dia = data.getDay();
-        return dia === this.DOMINGO || dia === this.SABADO;
+        return dia === this._diasSemana.DOMINGO || dia === this._diasSemana.SABADO;
     }
 }
