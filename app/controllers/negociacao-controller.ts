@@ -22,8 +22,8 @@ export class NegociacaoController {
     }
 
     public adicionar(): void {
-        const negociacao =  this.criarNegociacao();
-        
+        const negociacao =  Negociacao.criar(this._inputData.value, this._inputQtde.value, this._inputValor.value);
+
         if(this.isFinalSemana(negociacao.data))
         {
             this._mensagemView.atualizar('Apenas negociações em dias úteis são aceitas.');
@@ -36,15 +36,6 @@ export class NegociacaoController {
         this.atualizarView();
     }
 
-    private criarNegociacao(): Negociacao {
-        const valueDateHtml = /-/g;
-        const date = new Date(this._inputData.value.replace(valueDateHtml, ','));
-        const qtde = parseInt(this._inputQtde.value);
-        const valor = parseFloat(this._inputValor.value);
-
-        return new Negociacao(date, qtde, valor);
-    }
-    
     private limparFormulario(): void {
         this._inputData.value = '';
         this._inputQtde.value = '';
