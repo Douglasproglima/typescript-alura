@@ -15,9 +15,9 @@ export class NegociacaoController {
     private _diasSemana = DiaSemana;
 
     constructor() {
-        this._inputData = document.querySelector("#data");
-        this._inputQtde = document.querySelector("#quantidade");
-        this._inputValor = document.querySelector("#valor");
+        this._inputData = <HTMLInputElement>document.querySelector("#data");
+        this._inputQtde = document.querySelector("#quantidade") as HTMLInputElement;
+        this._inputValor = document.querySelector("#valor") as HTMLInputElement;
         this._negociacoesView.atualizar(this._negociacoes);
     }
 

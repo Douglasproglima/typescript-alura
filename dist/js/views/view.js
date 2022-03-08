@@ -1,7 +1,11 @@
 export class View {
     constructor(selectorCss, scape) {
         this._scape = false;
-        this._elemento = document.querySelector(selectorCss);
+        const elemento = document.querySelector(selectorCss);
+        if (elemento)
+            this._elemento = elemento;
+        else
+            throw Error(`Seletor ${selectorCss} não existe no DOM. Verifique!`);
         if (scape)
             this._scape = scape;
     }
