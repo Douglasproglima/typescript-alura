@@ -1,4 +1,4 @@
-export function logTempoExecucao() { 
+export function logTempoExecucao(isSegundosOrMilesegundos: boolean = false) { 
     return function(
         target: any, 
         propertyKey: string, 
@@ -8,6 +8,10 @@ export function logTempoExecucao() {
         
         //Sobrescrevendo o comportamento o método original
         descriptor.value =  function(...args: Array<any>) {
+
+            let divisor = isSegundosOrMilesegundos ? 1000 : 1;
+            let unidade = isSegundosOrMilesegundos ? 'segundos': 'milesegundos'
+
             const tempo1 = performance.now();
 
             //apply() => Chama a execução do método original passando o contexto
@@ -15,7 +19,7 @@ export function logTempoExecucao() {
             const retornoMetodo = metodoOriginal.apply(this, args);
 
             const tempo2 = performance.now();
-            console.log(`Tempo de execução - ${propertyKey}: ${(tempo2 - tempo1)/1000} segundos`);
+            console.log(`Tempo de execução - ${propertyKey}: ${(tempo2 - tempo1)/divisor} ${unidade}`);
         
             retornoMetodo
         }

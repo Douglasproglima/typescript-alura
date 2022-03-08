@@ -1,5 +1,4 @@
 import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
-import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 
 export abstract class View<T> {
     protected _elemento: HTMLElement;
@@ -16,7 +15,7 @@ export abstract class View<T> {
         if(scape) this._scape = scape;
     }
 
-    @logarTempoDeExecucao()
+    @logTempoExecucao(true)
     public atualizar(model: T): void {
         let template = this.template(model);
         if(this._scape) template = this.removerScript(template); 
