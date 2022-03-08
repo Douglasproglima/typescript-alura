@@ -1,4 +1,5 @@
-import { LogTempoExecucao } from "../decorators/log-tempo-execucao.js";
+import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
+import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 
 export abstract class View<T> {
     protected _elemento: HTMLElement;
@@ -15,16 +16,16 @@ export abstract class View<T> {
         if(scape) this._scape = scape;
     }
 
-    @LogTempoExecucao()
+    @logarTempoDeExecucao()
     public atualizar(model: T): void {
         let template = this.template(model);
-        if(this._scape) template = this.RemoverScript(template); 
+        if(this._scape) template = this.removerScript(template); 
         this._elemento.innerHTML = this.template(model);
     }
 
     protected abstract template(model: T): string;
 
-    private RemoverScript(scape: string): string {
+    private removerScript(scape: string): string {
         const regex = /<script>[\S\s?]*?<\/script>/;
         return scape.replace(regex, '');
     }

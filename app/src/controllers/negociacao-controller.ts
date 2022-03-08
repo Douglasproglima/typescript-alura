@@ -3,7 +3,8 @@ import { Negociacoes } from "../models/negociacoes.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 import { DiaSemana } from "../enums/dia-semana.js";
-import { LogTempoExecucao } from "../decorators/log-tempo-execucao.js";
+import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
+import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 
 export class NegociacaoController {
 
@@ -22,7 +23,7 @@ export class NegociacaoController {
         this._negociacoesView.atualizar(this._negociacoes);
     }
 
-    @LogTempoExecucao()
+    @logarTempoDeExecucao()
     public adicionar(): void {
         const negociacao =  Negociacao.criar(this._inputData.value, this._inputQtde.value, this._inputValor.value);
 
