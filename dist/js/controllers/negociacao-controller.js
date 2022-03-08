@@ -2,21 +2,20 @@ import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
+import { DiaSemana } from "../enums/dia-semana.js";
 export class NegociacaoController {
     constructor() {
-        //#region Constantes
-        this.SABADO = 6;
-        this.DOMINGO = 0;
         this._negociacoes = new Negociacoes();
-        this._negociacoesView = new NegociacoesView('#negociacoesView');
+        this._negociacoesView = new NegociacoesView('#negociacoesView', true);
         this._mensagemView = new MensagemView('#mensagemView');
+        this._diasSemana = DiaSemana;
         this._inputData = document.querySelector("#data");
         this._inputQtde = document.querySelector("#quantidade");
         this._inputValor = document.querySelector("#valor");
         this._negociacoesView.atualizar(this._negociacoes);
     }
     adicionar() {
-        const negociacao = this.criarNegociacao();
+        const negociacao = Negociacao.criar(this._inputData.value, this._inputQtde.value, this._inputValor.value);
         if (this.isFinalSemana(negociacao.data)) {
             this._mensagemView.atualizar('Apenas negociações em dias úteis são aceitas.');
             return;
@@ -25,13 +24,6 @@ export class NegociacaoController {
         this._negociacoes.listar();
         this.limparFormulario();
         this.atualizarView();
-    }
-    criarNegociacao() {
-        const valueDateHtml = /-/g;
-        const date = new Date(this._inputData.value.replace(valueDateHtml, ','));
-        const qtde = parseInt(this._inputQtde.value);
-        const valor = parseFloat(this._inputValor.value);
-        return new Negociacao(date, qtde, valor);
     }
     limparFormulario() {
         this._inputData.value = '';
@@ -45,6 +37,6 @@ export class NegociacaoController {
     }
     isFinalSemana(data) {
         const dia = data.getDay();
-        return dia === this.DOMINGO || dia === this.SABADO;
+        return dia === this._diasSemana.DOMINGO || dia === this._diasSemana.SABADO;
     }
 }
