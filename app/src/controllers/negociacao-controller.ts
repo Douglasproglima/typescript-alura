@@ -11,7 +11,7 @@ export class NegociacaoController {
     private _inputQtde: HTMLInputElement;
     private _inputValor: HTMLInputElement;
     private _negociacoes: Negociacoes =  new Negociacoes();
-    private _negociacoesView = new NegociacoesView('#negociacoesView', true);
+    private _negociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView = new MensagemView('#mensagemView');
     private _diasSemana = DiaSemana;
 

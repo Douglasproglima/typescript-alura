@@ -5,28 +5,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
+import { inspect } from "../decorators/inspect.js";
 export class View {
-    constructor(selectorCss, scape) {
-        this._scape = false;
+    constructor(selectorCss) {
         const elemento = document.querySelector(selectorCss);
         if (elemento)
             this._elemento = elemento;
         else
             throw Error(`Seletor ${selectorCss} não existe no DOM. Verifique!`);
-        if (scape)
-            this._scape = scape;
     }
     atualizar(model) {
         let template = this.template(model);
-        if (this._scape)
-            template = this.removerScript(template);
-        this._elemento.innerHTML = this.template(model);
-    }
-    removerScript(scape) {
-        const regex = /<script>[\S\s?]*?<\/script>/;
-        return scape.replace(regex, '');
+        this._elemento.innerHTML = template;
     }
 }
 __decorate([
-    logTempoExecucao(true)
+    logTempoExecucao(true),
+    inspect
 ], View.prototype, "atualizar", null);

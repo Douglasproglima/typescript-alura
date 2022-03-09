@@ -1,8 +1,10 @@
 import { Negociacoes } from "../models/negociacoes.js";
 import { View } from "./view.js";
+import { scape } from "../decorators/scape.js";
 
 export class NegociacoesView extends View<Negociacoes> {
 
+    @scape
     protected template(model: Negociacoes): string {
         return `
             <table class="table table-houver table-borderred">

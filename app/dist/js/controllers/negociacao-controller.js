@@ -13,7 +13,7 @@ import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
 export class NegociacaoController {
     constructor() {
         this._negociacoes = new Negociacoes();
-        this._negociacoesView = new NegociacoesView('#negociacoesView', true);
+        this._negociacoesView = new NegociacoesView('#negociacoesView');
         this._mensagemView = new MensagemView('#mensagemView');
         this._diasSemana = DiaSemana;
         this._inputData = document.querySelector("#data");
