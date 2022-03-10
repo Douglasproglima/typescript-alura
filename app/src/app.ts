@@ -11,3 +11,12 @@ if(form) {
 }
 else
     throw Error('Formulário não encontrado. Verifique!');
+
+const btnImportarDados = document.querySelector('#btn-importar');
+if(btnImportarDados) {
+    btnImportarDados.addEventListener('click', () => {
+        controller.importarDados();
+    });
+}
+else
+    throw Error('Botão importar não foi encontrado!');

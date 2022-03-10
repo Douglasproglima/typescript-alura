@@ -38,6 +38,10 @@ export class NegociacaoController {
         this.atualizarView();
     }
 
+    public importarDados(): void {
+        alert('Importar Dados');
+    } 
+
     private limparFormulario(): void {
         this._inputData.value = '';
         this._inputQtde.value = '';

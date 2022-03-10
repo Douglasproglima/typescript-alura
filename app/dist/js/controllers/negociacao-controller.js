@@ -32,6 +32,9 @@ export class NegociacaoController {
         this.limparFormulario();
         this.atualizarView();
     }
+    importarDados() {
+        alert('Importar Dados');
+    }
     limparFormulario() {
         this._inputData.value = '';
         this._inputQtde.value = '';
