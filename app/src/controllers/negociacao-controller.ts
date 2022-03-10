@@ -4,6 +4,7 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 import { DiaSemana } from "../enums/dia-semana.js";
 import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
+import { NegociacoesAtual } from "../interfaces/negociacoes-atual.js";
 
 export class NegociacaoController {
 
@@ -43,7 +44,7 @@ export class NegociacaoController {
 
         fetch(this._URL)
             .then(res => res.json())
-            .then((dados: Array<any>) => {
+            .then((dados: Array<NegociacoesAtual>) => {
                 return dados.map(dado => {
                     return new Negociacao(
                         new Date(), 
