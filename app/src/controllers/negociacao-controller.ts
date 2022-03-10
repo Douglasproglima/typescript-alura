@@ -7,6 +7,7 @@ import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
 
 export class NegociacaoController {
 
+    private _URL: any = 'http://localhost:8080/dados';
     private _inputData: HTMLInputElement;
     private _inputQtde: HTMLInputElement;
     private _inputValor: HTMLInputElement;
@@ -39,7 +40,24 @@ export class NegociacaoController {
     }
 
     public importarDados(): void {
-        alert('Importar Dados');
+
+        fetch(this._URL)
+            .then(res => res.json())
+            .then((dados: Array<any>) => {
+                return dados.map(dado => {
+                    return new Negociacao(
+                        new Date(), 
+                        dado.vezes, 
+                        dado.montante
+                    )
+                })
+            })
+            .then(negociacoesAtual => {
+                for(let negociacao of negociacoesAtual)
+                    this._negociacoes.adicionar(negociacao);
+
+                this._negociacoesView.atualizar(this._negociacoes);
+            });
     } 
 
     private limparFormulario(): void {

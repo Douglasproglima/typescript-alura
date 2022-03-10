@@ -12,6 +12,7 @@ import { DiaSemana } from "../enums/dia-semana.js";
 import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
 export class NegociacaoController {
     constructor() {
+        this._URL = 'http://localhost:8080/dados';
         this._negociacoes = new Negociacoes();
         this._negociacoesView = new NegociacoesView('#negociacoesView');
         this._mensagemView = new MensagemView('#mensagemView');
@@ -33,7 +34,18 @@ export class NegociacaoController {
         this.atualizarView();
     }
     importarDados() {
-        alert('Importar Dados');
+        fetch(this._URL)
+            .then(res => res.json())
+            .then((dados) => {
+            return dados.map(dado => {
+                return new Negociacao(new Date(), dado.vezes, dado.montante);
+            });
+        })
+            .then(negociacoesAtual => {
+            for (let negociacao of negociacoesAtual)
+                this._negociacoes.adicionar(negociacao);
+            this._negociacoesView.atualizar(this._negociacoes);
+        });
     }
     limparFormulario() {
         this._inputData.value = '';
