@@ -6,6 +6,7 @@ import { DiaSemana } from "../enums/dia-semana.js";
 import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
 import { NegociacoesService } from "../services/negociacoes-service.js";
 import { inspect } from "../decorators/inspect.js";
+import { domInjector } from "../decorators/dom-injector.js";
 
 export class NegociacaoController {
 
