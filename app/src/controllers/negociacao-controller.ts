@@ -4,26 +4,29 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 import { DiaSemana } from "../enums/dia-semana.js";
 import { logTempoExecucao } from "../decorators/log-tempo-execucao.js";
-import { NegociacoesAtual } from "../interfaces/negociacoes-atual.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
+import { inspect } from "../decorators/inspect.js";
 
 export class NegociacaoController {
 
-    private _URL: any = 'http://localhost:8080/dados';
+    @domInjector('#data')
     private _inputData: HTMLInputElement;
+    @domInjector('#quantidade')
     private _inputQtde: HTMLInputElement;
+    @domInjector('#valor')
     private _inputValor: HTMLInputElement;
+
     private _negociacoes: Negociacoes =  new Negociacoes();
     private _negociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView = new MensagemView('#mensagemView');
     private _diasSemana = DiaSemana;
+    private _negocicaoService = new NegociacoesService();
 
     constructor() {
-        this._inputData = <HTMLInputElement>document.querySelector("#data");
-        this._inputQtde = document.querySelector("#quantidade") as HTMLInputElement;
-        this._inputValor = document.querySelector("#valor") as HTMLInputElement;
         this._negociacoesView.atualizar(this._negociacoes);
     }
 
+    @inspect
     @logTempoExecucao()
     public adicionar(): void {
         const negociacao =  Negociacao.criar(this._inputData.value, this._inputQtde.value, this._inputValor.value);
@@ -41,18 +44,8 @@ export class NegociacaoController {
     }
 
     public importarDados(): void {
-
-        fetch(this._URL)
-            .then(res => res.json())
-            .then((dados: Array<NegociacoesAtual>) => {
-                return dados.map(dado => {
-                    return new Negociacao(
-                        new Date(), 
-                        dado.vezes, 
-                        dado.montante
-                    )
-                })
-            })
+        this._negocicaoService
+            .retornarNegociacoesAtual()
             .then(negociacoesAtual => {
                 for(let negociacao of negociacoesAtual)
                     this._negociacoes.adicionar(negociacao);
