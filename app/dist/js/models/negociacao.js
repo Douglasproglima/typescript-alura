@@ -20,4 +20,10 @@ export class Negociacao {
             Qtde: ${this.qtde},
             Valor: ${this.valor}`;
     }
+    isEqual(negociacao) {
+        const isNegociacaoEqual = this._data.getDate() === negociacao._data.getDate() &&
+            this._data.getMonth() === negociacao._data.getMonth() &&
+            this._data.getFullYear() === negociacao._data.getFullYear();
+        return isNegociacaoEqual;
+    }
 }

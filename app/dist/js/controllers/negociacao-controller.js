@@ -38,6 +38,13 @@ export class NegociacaoController {
         this._negocicaoService
             .retornarNegociacoesAtual()
             .then(negociacoesAtual => {
+            return negociacoesAtual.filter(negociacaoAtual => {
+                return !this._negociacoes
+                    .listar()
+                    .some(negociacao => negociacao.isEqual(negociacaoAtual));
+            });
+        })
+            .then(negociacoesAtual => {
             for (let negociacao of negociacoesAtual)
                 this._negociacoes.adicionar(negociacao);
             this._negociacoesView.atualizar(this._negociacoes);

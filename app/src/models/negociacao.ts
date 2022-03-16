@@ -26,4 +26,12 @@ export class Negociacao implements IPrinter {
             Qtde: ${this.qtde},
             Valor: ${this.valor}`;
     }
+
+    public isEqual(negociacao: Negociacao): boolean {
+        const isNegociacaoEqual: boolean = 
+            this._data.getDate() === negociacao._data.getDate() &&
+            this._data.getMonth() === negociacao._data.getMonth() && 
+            this._data.getFullYear() === negociacao._data.getFullYear();
+        return isNegociacaoEqual;
+    }
 }
