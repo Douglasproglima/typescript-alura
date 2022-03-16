@@ -1,7 +1,7 @@
-import { Printer } from "../utils/printer.js";
+import { IPrinter } from "../interfaces/iprinter.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes extends Printer {
+export class Negociacoes implements IPrinter {
     //private _negociacoes: Array<Negociacao> = [];
     private _negociacoes: Negociacao[] = [];
 

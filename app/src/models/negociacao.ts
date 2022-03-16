@@ -1,13 +1,10 @@
-import { Printer } from "../utils/printer.js";
-
-export class Negociacao extends Printer {
+import { IPrinter } from "../interfaces/iprinter.js";
+export class Negociacao implements IPrinter {
     constructor(
         private _data: Date, 
         public readonly qtde: Number, 
         public readonly valor: Number
-    ) {
-        super();
-    }
+    ) { }
 
     get data():Date {
         //Programação defensiva

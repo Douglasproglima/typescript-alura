@@ -1,7 +1,5 @@
-import { Printer } from "../utils/printer.js";
-export class Negociacoes extends Printer {
+export class Negociacoes {
     constructor() {
-        super(...arguments);
         this._negociacoes = [];
     }
     adicionar(negociacao) {

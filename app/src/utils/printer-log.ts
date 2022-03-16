@@ -1,7 +1,6 @@
-import { Negociacao } from "../models/negociacao";
-import { Printer } from "./printer.js";
+import { IPrinter } from "../interfaces/iprinter.js";
 
-export function printerLog(...objects: Array<Printer>) {
+export function printerLog(...objects: Array<IPrinter>) {
     for (let object of objects) {
         console.log(object.toText())
     }
