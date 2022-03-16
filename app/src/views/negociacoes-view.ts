@@ -1,6 +1,6 @@
+import { scape } from "../decorators/scape.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { View } from "./view.js";
-import { scape } from "../decorators/scape.js";
 
 export class NegociacoesView extends View<Negociacoes> {
 

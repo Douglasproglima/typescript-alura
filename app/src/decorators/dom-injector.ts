@@ -3,14 +3,22 @@ export function domInjector(seletor: string) {
         
         console.log(`Modificando prototype: ${target.constructor.name}  e add getter para propertie ${propertyKey}`);
 
+        let elemento: HTMLElement | null = null;
+
         const getter = function() {
-            const elemento = document.querySelector(seletor);
-
-            console.log(`Buscando elemento DOM com seletor: ${seletor} para injetar em: ${propertyKey}`);
-
+            
+            if (!elemento) {
+                elemento = <HTMLElement>document.querySelector(seletor);
+                console.log(`Buscando elemento DOM com seletor: ${seletor} para injetar em: ${propertyKey}`);
+            }
+            
             return elemento;
         }
 
-        Object.defineProperties(target, propertyKey, {get: getter});
+        Object.defineProperties(
+            target, 
+            propertyKey, 
+            { get: getter }
+        );
     }
 }
