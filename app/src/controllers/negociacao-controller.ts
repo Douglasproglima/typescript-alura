@@ -17,7 +17,7 @@ export class NegociacaoController {
     @domInjector('#valor')
     private _inputValor: HTMLInputElement;
 
-    private _negociacoes: Negociacoes =  new Negociacoes();
+    private _negociacoes =  new Negociacoes();
     private _negociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView = new MensagemView('#mensagemView');
     private _diasSemana = DiaSemana;
@@ -30,7 +30,11 @@ export class NegociacaoController {
     @inspect
     @logTempoExecucao()
     public adicionar(): void {
-        const negociacao =  Negociacao.criar(this._inputData.value, this._inputQtde.value, this._inputValor.value);
+        const negociacao =  Negociacao.criar(
+            this._inputData.value, 
+            this._inputQtde.value, 
+            this._inputValor.value
+        );
 
         if(this.isFinalSemana(negociacao.data))
         {
@@ -39,7 +43,7 @@ export class NegociacaoController {
         }
         
         this._negociacoes.adicionar(negociacao);
-        this._negociacoes.listar();
+        //this._negociacoes.listar();
         this.limparFormulario();
         this.atualizarView();
     }
