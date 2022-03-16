@@ -1,5 +1,7 @@
-export class Negociacoes {
+import { Printer } from "../utils/printer.js";
+export class Negociacoes extends Printer {
     constructor() {
+        super(...arguments);
         this._negociacoes = [];
     }
     adicionar(negociacao) {
@@ -7,5 +9,8 @@ export class Negociacoes {
     }
     listar() {
         return this._negociacoes;
+    }
+    toText() {
+        return `Negociações: ${this._negociacoes}`;
     }
 }

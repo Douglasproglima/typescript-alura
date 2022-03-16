@@ -1,6 +1,7 @@
+import { Printer } from "../utils/printer.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes {
+export class Negociacoes extends Printer {
     //private _negociacoes: Array<Negociacao> = [];
     private _negociacoes: Negociacao[] = [];
 
@@ -11,5 +12,9 @@ export class Negociacoes {
     //listar(): ReadonlyArray<Negociacao> {
     public listar(): readonly Negociacao[] {
         return this._negociacoes;
+    }
+
+    public toText(): string {
+        return `Negociações: ${this._negociacoes}`;
     }
 }

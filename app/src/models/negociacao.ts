@@ -1,9 +1,13 @@
-export class Negociacao {
+import { Printer } from "../utils/printer.js";
+
+export class Negociacao extends Printer {
     constructor(
         private _data: Date, 
         public readonly qtde: Number, 
         public readonly valor: Number
-    ) {}
+    ) {
+        super();
+    }
 
     get data():Date {
         //Programação defensiva
@@ -18,5 +22,11 @@ export class Negociacao {
         const valor = parseFloat(valorString);
 
         return new Negociacao(date, qtde, valor);
+    }
+
+    public toText(): string {
+        return `Data: ${this._data},
+            Qtde: ${this.qtde},
+            Valor: ${this.valor}`;
     }
 }
