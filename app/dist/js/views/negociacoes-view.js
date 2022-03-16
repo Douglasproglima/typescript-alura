@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { scape } from "../decorators/scape.js";
+import { Formatter } from "../utils/formatter.js";
 import { View } from "./view.js";
 export class NegociacoesView extends View {
     template(model) {
@@ -21,21 +22,15 @@ export class NegociacoesView extends View {
                         ${model.listar().map(negociacao => {
             return `
                                     <tr>
-                                        <td>${this.formatarData(negociacao.data)}</td>
+                                        <td>${Formatter.formatarData(negociacao.data)}</td>
                                         <td>${negociacao.qtde}</td>
-                                        <td>${this.formatarMoeda(negociacao.valor)}</td>
+                                        <td>${Formatter.formatarMoeda(negociacao.valor)}</td>
                                     </tr>
                                 `;
         }).join('')}
                 </tbody>
             </table>
         `;
-    }
-    formatarData(data) {
-        return new Intl.DateTimeFormat().format(data);
-    }
-    formatarMoeda(valor) {
-        return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
     }
 }
 __decorate([

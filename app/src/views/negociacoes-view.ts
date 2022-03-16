@@ -1,5 +1,6 @@
 import { scape } from "../decorators/scape.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { Formatter } from "../utils/formatter.js";
 import { View } from "./view.js";
 
 export class NegociacoesView extends View<Negociacoes> {
@@ -20,9 +21,9 @@ export class NegociacoesView extends View<Negociacoes> {
                             negociacao => {
                                 return `
                                     <tr>
-                                        <td>${this.formatarData(negociacao.data)}</td>
+                                        <td>${Formatter.formatarData(negociacao.data)}</td>
                                         <td>${negociacao.qtde}</td>
-                                        <td>${this.formatarMoeda(negociacao.valor)}</td>
+                                        <td>${Formatter.formatarMoeda(negociacao.valor)}</td>
                                     </tr>
                                 `;    
                             }
@@ -30,13 +31,5 @@ export class NegociacoesView extends View<Negociacoes> {
                 </tbody>
             </table>
         `;
-    }
-
-    private formatarData(data: Date): string {
-        return new Intl.DateTimeFormat().format(data);
-    }
-
-    private formatarMoeda(valor: Number): string {
-        return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
     }
 }
