@@ -11,4 +11,7 @@ export class Negociacoes {
     toText() {
         return `Negociações: ${this._negociacoes}`;
     }
+    isEqual(negociacoes) {
+        return JSON.stringify(this._negociacoes) === JSON.stringify(negociacoes.listar());
+    }
 }

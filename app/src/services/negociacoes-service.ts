@@ -1,4 +1,4 @@
-import { NegociacoesAtual } from "../interfaces/negociacoes-atual.js";
+import { INegociacoesAtual } from "../interfaces/inegociacoes-atual.js";
 import { Negociacao } from "../models/negociacao.js";
 
 export class NegociacoesService {
@@ -9,7 +9,7 @@ export class NegociacoesService {
         const retorno = 
             fetch(this._URL)
                 .then(res => res.json())
-                .then((dados: Array<NegociacoesAtual>) => {
+                .then((dados: Array<INegociacoesAtual>) => {
                     return dados.map(dado => {
                         return new Negociacao(
                             new Date(), 
