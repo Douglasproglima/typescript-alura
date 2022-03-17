@@ -27,3 +27,4 @@ export class Negociacao {
         return isNegociacaoEqual;
     }
 }
+//# sourceMappingURL=negociacao.js.map

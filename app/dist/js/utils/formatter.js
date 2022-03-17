@@ -6,3 +6,4 @@ export class Formatter {
         return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
     }
 }
+//# sourceMappingURL=formatter.js.map

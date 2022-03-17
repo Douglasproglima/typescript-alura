@@ -14,3 +14,4 @@ export class NegociacoesService {
         return retorno;
     }
 }
+//# sourceMappingURL=negociacoes-service.js.map
