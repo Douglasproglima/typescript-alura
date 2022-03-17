@@ -1,8 +1,7 @@
-import { IPrinter } from "../interfaces/iprinter.js";
-import { ICompare } from "../interfaces/icompare.js";
+import { IModel } from "../interfaces/imodel.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes implements IPrinter, ICompare<Negociacoes> {
+export class Negociacoes implements IModel<Negociacoes> {
     //private _negociacoes: Array<Negociacao> = [];
     private _negociacoes: Negociacao[] = [];
 

@@ -1,6 +1,6 @@
-import { ICompare } from "../interfaces/icompare.js";
-import { IPrinter } from "../interfaces/iprinter.js";
-export class Negociacao implements IPrinter, ICompare<Negociacao> {
+import { IModel } from "../interfaces/imodel.js";
+
+export class Negociacao implements IModel<Negociacao> {
     constructor(
         private _data: Date, 
         public readonly qtde: Number, 
